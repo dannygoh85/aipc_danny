@@ -1,0 +1,3 @@
+packer build -var-file=variables.pkr.hcl images.pkr.hcl
+
+ansible-playbook playbook.yaml -i inventory.yaml

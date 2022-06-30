@@ -11,46 +11,46 @@
     - name: print server
       debug:
         msg: "current ip address {{ ansible_host }}"
-    # - name: install apps
-    #   apt:
-    #     update_cache: yes
-    #     name: "{{ item.name }}"
-    #     state: latest
-    #   loop: "{{ packages_to_install }}"
-    # - name: enable apps
-    #   systemd:
-    #     name: nginx
-    #     state: started
-    #     enabled: yes
-    # - name: Create directory
-    #   shell:
-    #     cmd: "mkdir ~/code-server"
-    # - name: Get CodeServer
-    #   shell:
-    #     cmd: "wget https://github.com/coder/code-server/releases/download/v4.4.0/code-server-4.4.0-linux-amd64.tar.gz"
-    #     chdir: ./code-server
-    # - name: unzip codeserve foiles
-    #   shell:
-    #     cmd: "tar -xzvf code-server-4.4.0-linux-amd64.tar.gz"
-    #     chdir: ./code-server
-    # - name: move files
-    #   shell:
-    #     cmd: "sudo cp -r code-server-4.4.0-linux-amd64 /usr/lib/code-server"
-    #     chdir: ./code-server
-    # - name: create sym link
-    #   shell:
-    #     cmd: "sudo ln -s /usr/lib/code-server/bin/code-server /usr/bin/code-server"
-    # - name: create directory
-    #   shell:
-    #     cmd: "sudo mkdir /var/lib/code-server"
-    # - name: copy coder server config
-    #   copy:
-    #     src: /home/fred/aipc_danny/day2/workshop2/code-server.service.j2
-    #     dest: /lib/systemd/system/code-server.service
-    # - name: copy nginx code server config
-    #   copy:
-    #     src: /home/fred/aipc_danny/day2/workshop2/code-server.conf.j2
-    #     dest: /etc/nginx/sites-available/code-server.conf
+    - name: install apps
+      apt:
+        update_cache: yes
+        name: "{{ item.name }}"
+        state: latest
+      loop: "{{ packages_to_install }}"
+    - name: enable apps
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+    - name: Create directory
+      shell:
+        cmd: "mkdir ~/code-server"
+    - name: Get CodeServer
+      shell:
+        cmd: "wget https://github.com/coder/code-server/releases/download/v4.4.0/code-server-4.4.0-linux-amd64.tar.gz"
+        chdir: ./code-server
+    - name: unzip codeserve foiles
+      shell:
+        cmd: "tar -xzvf code-server-4.4.0-linux-amd64.tar.gz"
+        chdir: ./code-server
+    - name: move files
+      shell:
+        cmd: "sudo cp -r code-server-4.4.0-linux-amd64 /usr/lib/code-server"
+        chdir: ./code-server
+    - name: create sym link
+      shell:
+        cmd: "sudo ln -s /usr/lib/code-server/bin/code-server /usr/bin/code-server"
+    - name: create directory
+      shell:
+        cmd: "sudo mkdir /var/lib/code-server"
+    - name: copy coder server config
+      copy:
+        src: /home/fred/aipc_danny/day2/workshop2/code-server.service.j2
+        dest: /lib/systemd/system/code-server.service
+    - name: copy nginx code server config
+      copy:
+        src: /home/fred/aipc_danny/day2/workshop2/code-server.conf.j2
+        dest: /etc/nginx/sites-available/code-server.conf
     - name: start code-server
       shell:
         cmd: "sudo systemctl start code-server"

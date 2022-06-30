@@ -1,0 +1,23 @@
+- name: Update Code-Server Configs
+  hosts: all
+  tasks:
+    - name: update code server service
+      copy:
+        src: /home/fred/aipc_danny/day3/workshop3/deploy/code-server.service.j2
+        dest: /lib/systemd/system/code-server.service
+    - name: update nginx code server config
+      copy:
+        src: /home/fred/aipc_danny/day3/workshop3/deploy/code-server.conf.j2
+        dest: /etc/nginx/sites-available/code-server.conf
+    - name: start code-server
+      shell:
+        cmd: "sudo systemctl start code-server"
+    - name: status code-server
+      shell:
+        cmd: "sudo systemctl status code-server"
+    - name: enable code-server
+      shell:
+        cmd: "sudo systemctl enable code-server"
+    - name: restart service
+      shell:
+        cmd: "sudo systemctl restart nginx"
